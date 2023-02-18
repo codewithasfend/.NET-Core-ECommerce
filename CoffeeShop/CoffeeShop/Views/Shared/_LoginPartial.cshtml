@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+        <li class="nav-item dropdown">
+            <a class="nav-link link text-black dropdown-toggle show display-4" data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><span class="mobi-mbri mobi-mbri-user-2 mbr-iconfont mbr-iconfont-btn"></span></a>
+            <div class="dropdown-menu show" aria-labelledby="dropdown-751" data-bs-popper="none">
+                <a class="text-black show dropdown-item display-4" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+            </div>
+        </li>
+}
+else
+{
+        <li class="nav-item dropdown">
+            <a class="nav-link link text-black dropdown-toggle show display-4" data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><span class="mobi-mbri mobi-mbri-user-2 mbr-iconfont mbr-iconfont-btn"></span></a>
+            <div class="dropdown-menu show" aria-labelledby="dropdown-751" data-bs-popper="none">
+                <a class="text-black show dropdown-item display-4" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="text-black show dropdown-item display-4" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </div>
+        </li>
+}
+</ul>

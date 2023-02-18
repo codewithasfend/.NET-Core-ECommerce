@@ -1,0 +1,99 @@
+﻿@model IEnumerable<ShoppingCartItem>
+
+@if (Model.Count() > 0)
+{
+<section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px; background-color:#fafafa">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-7">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h2 class="fw-bold mb-0 text-black">Shopping Cart</h2>
+                                        <h6 class="mb-0 text-muted">@Model.Count() items</h6>
+                                    </div>
+                                    <hr class="my-4">
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img src="@item.Product?.ImageUrl"
+                                                     class="img-fluid rounded-3">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-black mb-0">@item.Qty x @item.Product?.Name</h6>
+                                            </div>
+
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0">@(item.Qty * item.Product?.Price) $</h6>
+                                            </div>
+
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <a asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-pId="@item.Product?.Id" class="text-decoration-none"><h3>&#128465;</h3></a>
+                                            </div>
+
+                                        </div>
+
+                                        <hr class="my-4">
+                                    }
+
+
+
+                                    <div class="pt-5">
+                                        <h6 class="mb-0">
+                                            <a asp-controller="Products" asp-action="Shop" class="text-body">
+                                                <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 bg-grey">
+                                <div class="p-5">
+                                    <h4 class="fw-bold mb-5 mt-2 pt-1">Summary</h4>
+                                    <hr class="my-4">
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Total price</h5>
+                                        <h5>@ViewBag.CartTotal.ToString("c")</h5>
+                                    </div>
+
+                                    <a asp-controller="Orders" asp-action="Checkout">
+                                        <button  type="button"
+                                                class="btn btn-primary w-100 text-center"
+                                                data-mdb-ripple-color="dark">
+                                            Proceed
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+}
+
+else
+{
+    <div class="container">
+        <br><br><br><br>
+        <div class="text-center">
+            <img src="https://www.svgrepo.com/show/17356/empty-cart.svg" class="img-fluid" style="width: 200px; height: 200px; margin-left: auto; margin-right: auto" alt="...">
+            <br>
+            <h1><strong>Your cart is empty</strong></h1>
+            <br>
+            <p>Before proceed to checkout you must add some products to your shopping cart. You will find a lot of interesting products on our "Shop" page.</p>
+            <a asp-controller="Products" asp-action="Shop" class="btn btn-primary w-20">
+                Start Shopping
+            </a>
+        </div>
+    </div>
+}
+
